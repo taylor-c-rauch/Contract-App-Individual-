@@ -22,6 +22,12 @@ export default class App extends Component {
   }
   //response when submit button (in contractForm.js) is clicked
   handleClick(e) {
+    if (this.state.name === "" || this.state.company === "") {
+      return null;
+    }
+    if (this.state.details === "") {
+      this.setState({ details: "N/A" });
+    }
     e.preventDefault();
     //create object with info currently in state
     let form = {

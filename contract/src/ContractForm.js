@@ -9,7 +9,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import grey from "@material-ui/core/colors/grey";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: grey
+  }
+});
 export default class ContractForm extends Component {
   constructor(props) {
     super(props);
@@ -38,29 +45,31 @@ export default class ContractForm extends Component {
           }}
         >
           <CardContent>
-            <TextField
-              id="name"
-              label="Name"
-              fullWidth
-              value={this.props.name}
-              onChange={e => this.props.update("name", e.target.value)}
-            />
-            <TextField
-              id="company"
-              label="Company"
-              fullWidth
-              value={this.props.company}
-              onChange={e => this.props.update("company", e.target.value)}
-            />
-            <TextField
-              value={this.props.details}
-              id="details"
-              multiline
-              rows="4"
-              label="Details"
-              fullWidth
-              onChange={e => this.props.update("details", e.target.value)}
-            />
+            <MuiThemeProvider theme={theme}>
+              <TextField
+                id="name"
+                label="Name"
+                fullWidth
+                value={this.props.name}
+                onChange={e => this.props.update("name", e.target.value)}
+              />
+              <TextField
+                id="company"
+                label="Company"
+                fullWidth
+                value={this.props.company}
+                onChange={e => this.props.update("company", e.target.value)}
+              />
+              <TextField
+                value={this.props.details}
+                id="details"
+                multiline
+                rows="4"
+                label="Details"
+                fullWidth
+                onChange={e => this.props.update("details", e.target.value)}
+              />
+            </MuiThemeProvider>
           </CardContent>
         </Card>
         <center>
