@@ -43,7 +43,7 @@ export default class App extends Component {
         />
         <br />
         <br />
-        <Display />
+        <Display contracts={this.state.submitted} />
       </center>
     );
   }

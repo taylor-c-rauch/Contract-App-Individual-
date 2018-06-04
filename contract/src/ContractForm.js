@@ -32,7 +32,7 @@ export default class ContractForm extends Component {
             onChange={e => this.props.update("company", e.target.value)}
           />
           <TextField
-            alue={this.props.details}
+            value={this.props.details}
             id="details"
             multiline
             rows="4"
