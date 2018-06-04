@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import firebase from "./firebase.js";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
 
 export default class Display extends Component {
   constructor() {
@@ -27,12 +29,21 @@ export default class Display extends Component {
         submitted.push({
           name: submittedContracts[form].name,
           company: submittedContracts[form].company,
-          details: submittedContracts[form].details
+          details: submittedContracts[form].details,
+          id: form
         });
       }
       this.setState({ submitted: submitted });
     });
   }
+
+  //response when remove button is clicked
+  handleRemove(e, id) {
+    e.preventDefault();
+    const RemoveForm = firebase.database().ref("/contracts/" + id);
+    RemoveForm.remove();
+  }
+
   render() {
     return (
       <div>
@@ -58,6 +69,17 @@ export default class Display extends Component {
                 <strong>Details: </strong>
                 {form.details}
               </CardContent>
+              <div align="center">
+                <Button
+                  mini
+                  variant="fab"
+                  onClick={e => this.handleRemove(e, form.id)}
+                >
+                  <DeleteIcon />
+                </Button>
+                <br />
+                <br />
+              </div>
             </Card>
           </div>
         ))}
