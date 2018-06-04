@@ -36,6 +36,11 @@ export default class App extends Component {
     this.setState({ name: "", company: "", details: "" });
   }
 
+  handleClear(e) {
+    e.preventDefault();
+    this.setState({ name: "", company: "", details: "" });
+  }
+
   render() {
     return (
       <div>
@@ -45,6 +50,7 @@ export default class App extends Component {
           company={this.state.company}
           details={this.state.details}
           submit={e => this.handleClick(e)}
+          clear={e => this.handleClear(e)}
         />
 
         <br />

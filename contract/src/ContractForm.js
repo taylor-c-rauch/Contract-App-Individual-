@@ -7,6 +7,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 export default class ContractForm extends Component {
   constructor(props) {
@@ -15,8 +17,15 @@ export default class ContractForm extends Component {
   render() {
     return (
       <div>
-        <AppBar position="static">
-          <Toolbar>Contract Form</Toolbar>
+        <AppBar position="static" style={{ backgroundColor: "#07575B" }}>
+          <br />
+        </AppBar>
+        <AppBar position="static" style={{ backgroundColor: "#66A5AD" }}>
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              Contract Form
+            </Typography>
+          </Toolbar>
         </AppBar>
 
         <Card
@@ -24,7 +33,8 @@ export default class ContractForm extends Component {
             marginLeft: 20,
             marginRight: 20,
             marginTop: 20,
-            marginBottom: 20
+            marginBottom: 20,
+            backgroundColor: "#eff7f9"
           }}
         >
           <CardContent>
@@ -54,10 +64,14 @@ export default class ContractForm extends Component {
           </CardContent>
         </Card>
         <center>
-          <Button variant="contained" onClick={e => this.props.submit(e)}>
-            {" "}
-            Submit{" "}
-          </Button>
+          <Grid container justify="center" spacing={8}>
+            <Grid item>
+              <Button onClick={e => this.props.submit(e)}> Submit </Button>
+            </Grid>
+            <Grid item>
+              <Button onClick={e => this.props.clear(e)}> Clear </Button>
+            </Grid>
+          </Grid>
         </center>
       </div>
     );

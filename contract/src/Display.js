@@ -10,6 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import firebase from "./firebase.js";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import ContractTile from "./ContractTile.js";
 
 export default class Display extends Component {
   constructor() {
@@ -43,45 +45,41 @@ export default class Display extends Component {
     const RemoveForm = firebase.database().ref("/contracts/" + id);
     RemoveForm.remove();
   }
+  removeAll(e) {
+    e.preventDefault();
+    for (let form in this.state.submitted) {
+      const RemoveForm = firebase
+        .database()
+        .ref("/contracts/" + this.state.submitted[form].id);
+      RemoveForm.remove();
+    }
+  }
 
   render() {
     return (
       <div>
-        <AppBar position="static">
-          <Toolbar>Submitted Contracts</Toolbar>
+        <AppBar position="static" style={{ backgroundColor: "#07575B" }}>
+          <br />
+        </AppBar>
+        <AppBar position="static" style={{ backgroundColor: "#66A5AD" }}>
+          <Toolbar>
+            <Typography variant="title" color="inherit" style={{ flex: 1 }}>
+              Submitted Contracts
+            </Typography>
+            <Button
+              color="inherit"
+              size="small"
+              onClick={e => this.removeAll(e)}
+            >
+              Remove All
+            </Button>
+          </Toolbar>
         </AppBar>
         {this.state.submitted.map(form => (
-          <div>
-            <Card
-              style={{
-                marginLeft: 20,
-                marginRight: 20,
-                marginTop: 20,
-                marginBottom: 20
-              }}
-            >
-              <CardContent>
-                <strong>Name: </strong> {form.name}
-                <br />
-                <strong>Company: </strong>
-                {form.company}
-                <br />
-                <strong>Details: </strong>
-                {form.details}
-              </CardContent>
-              <div align="center">
-                <Button
-                  mini
-                  variant="fab"
-                  onClick={e => this.handleRemove(e, form.id)}
-                >
-                  <DeleteIcon />
-                </Button>
-                <br />
-                <br />
-              </div>
-            </Card>
-          </div>
+          <ContractTile
+            form={form}
+            handleRemove={(e, id) => this.handleRemove(e, id)}
+          />
         ))}
       </div>
     );
