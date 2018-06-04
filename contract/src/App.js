@@ -11,13 +11,36 @@ export default class App extends Component {
     this.state = {
       name: "",
       company: "",
-      details: ""
+      details: "",
+      submitted: []
     };
   }
+  updateField(field, newVal) {
+    this.setState({ [field]: newVal });
+  }
+  handleClick(e) {
+    e.preventDefault();
+    let form = {
+      name: this.state.name,
+      company: this.state.company,
+      details: this.state.details
+    };
+    let results = this.state.submitted;
+    results.push(form);
+    this.setState({ submitted: results });
+    this.setState({ name: "", company: "", details: "" });
+  }
+
   render() {
     return (
       <center>
-        <ContractForm />
+        <ContractForm
+          update={(field, newVal) => this.updateField(field, newVal)}
+          name={this.state.name}
+          company={this.state.company}
+          details={this.state.details}
+          submit={e => this.handleClick(e)}
+        />
         <br />
         <br />
         <Display />

@@ -7,7 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 
 export default class ContractForm extends Component {
   constructor(props) {
-    super();
+    super(props);
   }
   render() {
     return (
@@ -17,18 +17,35 @@ export default class ContractForm extends Component {
         </AppBar>
 
         <form>
-          <TextField id="name" label="Name" fullWidth />
-          <TextField id="company" label="Company" fullWidth />
           <TextField
+            id="name"
+            label="Name"
+            fullWidth
+            value={this.props.name}
+            onChange={e => this.props.update("name", e.target.value)}
+          />
+          <TextField
+            id="company"
+            label="Company"
+            fullWidth
+            value={this.props.company}
+            onChange={e => this.props.update("company", e.target.value)}
+          />
+          <TextField
+            alue={this.props.details}
             id="details"
             multiline
             rows="4"
             label="Details"
             fullWidth
+            onChange={e => this.props.update("details", e.target.value)}
           />
           <br />
           <br />
-          <Button variant="contained"> Submit </Button>
+          <Button variant="contained" onClick={e => this.props.submit(e)}>
+            {" "}
+            Submit{" "}
+          </Button>
         </form>
       </div>
     );
