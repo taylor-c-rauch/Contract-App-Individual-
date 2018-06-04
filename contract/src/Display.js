@@ -1,3 +1,4 @@
+//this component displays the submitted contracts from firebase
 import React, { Component } from "react";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -9,12 +10,16 @@ import CardContent from "@material-ui/core/CardContent";
 import firebase from "./firebase.js";
 
 export default class Display extends Component {
-  constructor(props) {
+  constructor() {
     super();
+    //submitted state will hold info pulled from firebase
     this.state = { submitted: [] };
   }
+
   componentDidMount() {
+    //get data from firebase
     const results = firebase.database().ref("contracts");
+    //every time there is a change, take snapshot, iterate through and put in submitted state
     results.on("value", snapshot => {
       let submittedContracts = snapshot.val();
       let submitted = [];
@@ -36,7 +41,14 @@ export default class Display extends Component {
         </AppBar>
         {this.state.submitted.map(form => (
           <div>
-            <Card>
+            <Card
+              style={{
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 20,
+                marginBottom: 20
+              }}
+            >
               <CardContent>
                 <strong>Name: </strong> {form.name}
                 <br />
@@ -45,10 +57,8 @@ export default class Display extends Component {
                 <br />
                 <strong>Details: </strong>
                 {form.details}
-                <br />
               </CardContent>
             </Card>
-            <br />
           </div>
         ))}
       </div>
