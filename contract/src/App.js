@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import ContractForm from "./ContractForm.js";
 import Display from "./Display.js";
+import firebase from "./firebase.js";
 
 export default class App extends Component {
   constructor() {
@@ -11,8 +12,7 @@ export default class App extends Component {
     this.state = {
       name: "",
       company: "",
-      details: "",
-      submitted: []
+      details: ""
     };
   }
   updateField(field, newVal) {
@@ -25,7 +25,7 @@ export default class App extends Component {
       company: this.state.company,
       details: this.state.details
     };
-    let results = this.state.submitted;
+    const results = firebase.database().ref("contracts");
     results.push(form);
     this.setState({ submitted: results });
     this.setState({ name: "", company: "", details: "" });
@@ -43,7 +43,7 @@ export default class App extends Component {
         />
         <br />
         <br />
-        <Display contracts={this.state.submitted} />
+        <Display />
       </center>
     );
   }
